@@ -15,6 +15,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 // middleware section
+app.use(express.static(path.join(__dirname, "images")))
 app.use(express.json())
 app.use(cors())
 

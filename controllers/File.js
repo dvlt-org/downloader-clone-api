@@ -1,17 +1,22 @@
 const File = require("../models/File")
 const getUrl = require("../config/downloadVideo.js")
+const { generateThumbnail } = require("../config/createThumbnail.js")
+
 
 const createFile = async (req, res) => {
     try {
         const videoUrl = await getUrl(req.body.url)
         if (!videoUrl) {
-            return res.status(200).json({
+            return res.status(400).json({
                 message: "Url bo'yicha muammolar mavjud !"
             })
         }
+        const fileName = Date.now() + ".png"
+        generateThumbnail(videoUrl, fileName)
+
         const newFile = new File({
             name: req.body.name,
-            image: req.body.image,
+            image: fileName,
             isSecret: req.body.isSecret,
             user_id: req.body.user_id,
             downloadUrl: videoUrl

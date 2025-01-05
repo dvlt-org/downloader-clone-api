@@ -6,7 +6,8 @@ const WithPromise = (videoUrl) => {
     }
 
     return new Promise((resolve, reject) => {
-        const command = `yt-dlp --get-url ${videoUrl}`;
+        const command = `yt-dlp -f "best" --get-url ${videoUrl}`;
+
 
         exec(command, (error, res, warning) => {
             if (error) {
@@ -19,6 +20,5 @@ const WithPromise = (videoUrl) => {
         });
     });
 };
-
 // test jarayonida hammasi ishga tushdi !
 module.exports = WithPromise
